@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeeksforGeeks ChatRoom</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="chat-container">
+        <h1 class="logo">Like Chat</h1>
+        <div class="chat-box" id="messageArea"></div>
+        <form class="send-message" id="form">
+            <input class="input-message" type="text" placeholder="Name" id="myname" required>
+            <input class="input-message" type="text" placeholder="Message" id="message" required>
+            <button class="send-button">Send</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script>
+        const socket = io('http://localhost:5000');
+        const form = document.getElementById('form');
+        const myname = document.getElementById('myname');
+        const message = document.getElementById('message');
+        const messageArea = document.getElementById('messageArea');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (message.value.trim()) {
+                const username = myname.value;
+                const chatMessage = message.value;
+
+                socket.emit('send name', username);
+                socket.emit('send message', { username: username, chat: chatMessage });
+
+                message.value = '';
+            }
+        });
+
+        socket.on('send name', (username) => {
+            const name = document.createElement('div');
+            name.classList.add('message', 'username');
+            name.innerHTML = `<span class="username">${username}:</span>`;
+            messageArea.appendChild(name);
+        });
+
+        socket.on('send message', (data) => {
+            const { chat, username } = data;
+            const chatContent = document.createElement('div');
+            chatContent.classList.add('message');
+            chatContent.textContent = chat;
+
+            if (username === myname.value) {
+                chatContent.classList.add('user-message');
+            } else {
+                chatContent.classList.add('other-message');
+            }
+
+            messageArea.appendChild(chatContent);
+            messageArea.scrollTop = messageArea.scrollHeight;
+        });
+    </script>
+</body>
+
+</html>
