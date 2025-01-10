@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/vicky-tyagi/realtime_chat#readme",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "socket.io": "^4.8.1"
   }
 }
