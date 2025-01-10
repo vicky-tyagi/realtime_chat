@@ -23,7 +23,7 @@
     <script>
         // const socket = io('http://localhost:5000');
         // Dynamically set the URL for the Socket.IO server
-        const socket = io(window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://www.realtimechat.free.nf');
+        const socket = io(window.location.hostname === 'localhost' ? 'http://localhost:5000' : window.location.origin);
 
         const form = document.getElementById('form');
         const myname = document.getElementById('myname');
