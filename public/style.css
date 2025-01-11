@@ -10,7 +10,7 @@ body, html {
   background-size: cover;
   background-position: center;
   width: 100%;
-  overflow: hidden; /* Prevent body overflow */
+  /* overflow: hidden; Prevent body overflow */
 }
 
 /* Main chat container */
@@ -25,7 +25,7 @@ body, html {
   flex-direction: column;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  overflow: hidden; /* Prevent any overflow */
+  /* overflow: hidden; Prevent any overflow */
   z-index: 1; /* Layer it above the background */
   backdrop-filter: blur(10px); /* Optional: Apply blur effect behind the chat container */
 }
@@ -80,7 +80,7 @@ h1.logo {
 }
 
 .user-message {
-  color: rgb(235 245 14);
+  color: rgb(24 63 26)  ;
   align-self: flex-end;
 }
 
@@ -108,10 +108,12 @@ h1.logo {
   width: 100%; /* Make input take full width */
   box-sizing: border-box; /* Prevent overflow */
   background-color: unset; /* Light transparent background for input field */
+  color: white; /* or whatever text color you want */
+  caret-color: white; 
 }
 
 .input-message::placeholder {
-  color: white; 
+  color: rgb(154, 152, 152); 
 }
 /* Send button styling */
 .send-button {
