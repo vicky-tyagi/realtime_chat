@@ -1,36 +1,18 @@
 require('dotenv').config()
 
 const http = require('http');
-const fs = require('fs');
 const path = require('path');
+const express = require('express');
 const { Server } = require('socket.io');
 
-const server = http.createServer((req, res) => {
-    if (req.url === '/') {
-        fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
-            if (err) {
-                res.writeHead(500);
-                res.end('Error loading index.html');
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end(data);
-            }
-        });
-    }
-    // Serve the CSS file
-    else if (req.url === '/style.css') {
-        fs.readFile(path.join(__dirname, 'style.css'), (err, data) => {
-            if (err) {
-                res.writeHead(500);
-                res.end('Error loading style.css');
-            } else {
-                res.writeHead(200, { 'Content-Type': 'text/css' });
-                res.end(data);
-            }
-        });
-    }
-});
+// Initialize express app
+const app = express();
+const server = http.createServer(app);
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Set up socket.io
 const io = new Server(server, {
     cors: {
         origin: "*",
